@@ -2,19 +2,22 @@ package com.exercise.course.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.exercise.course.model.Course;
+import com.exercise.course.model.CourseEntity;
 
 public interface CourseService {
 
-	public List<Course> getPaginatedCourses();
+	public Page<CourseEntity> getPaginatedCourses(Integer page, Integer size);
 
-	public List<Course> getCourses();
+	public List<CourseEntity> getCourses();
 
-	public Course getCourse(Long id);
+	public CourseEntity getCourse(Long id);
 
-	public Boolean postCourse(Course course);
+	public Long saveCourse(Course course);
 
-	public Boolean putCourse(Long id, Course course);
+	public Long updateCourse(Long id, Course course);
 
-	public Boolean deleteCourse(Long id);
+	public Long deleteCourse(Long id);
 }
