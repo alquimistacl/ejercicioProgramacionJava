@@ -1,0 +1,29 @@
+package com.exercise.course.exception;
+
+import io.swagger.annotations.ApiModelProperty;
+
+public class GenericError {
+
+	@ApiModelProperty(notes = "User error message")
+	private String userMessage;
+
+	@ApiModelProperty(notes = "Internal system error message")
+	private String internalMessage;
+
+	public String getUserMessage() {
+		return userMessage;
+	}
+
+	public void setUserMessage(String userMessage) {
+		this.userMessage = userMessage;
+	}
+
+	public String getInternalMessage() {
+		return internalMessage;
+	}
+
+	public void setInternalMessage(String internalMessage) {
+		this.internalMessage = internalMessage;
+	}
+
+}

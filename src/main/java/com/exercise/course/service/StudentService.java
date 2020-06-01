@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.exercise.course.exception.CourseNotFoundException;
+import com.exercise.course.exception.StudentNotFoundException;
 import com.exercise.course.model.Student;
 import com.exercise.course.model.StudentEntity;
 
@@ -15,8 +17,8 @@ public interface StudentService {
 	public StudentEntity getStudent(Long id);
 
 	public List<StudentEntity> getStudentsByCourse(Long idCourse);
-	
-	public Long saveStudent(Student student, Long courseId);
+
+	public Long saveStudent(Student student, Long courseId) ;
 
 	public Long updateStudentCourse(Long studentId, Long courseId);
 

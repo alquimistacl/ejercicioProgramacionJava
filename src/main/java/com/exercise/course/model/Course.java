@@ -1,12 +1,24 @@
 package com.exercise.course.model;
 
+import java.io.Serializable;
+
+import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class Course {
+@MappedSuperclass
+public class Course implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3726151988015272324L;
+
+	@NotBlank(message = "Name is mandatory")
 	private String name;
 
-	@Size(min = 4, max = 4, message = "The code should be 4 characters long")
+	@NotBlank(message = "Code is mandatory")
+	@Size(min = 2, max = 4, message = "The code should be 4 characters long")
 	private String code;
 
 	public String getName() {
@@ -30,5 +42,4 @@ public class Course {
 		return "Course [getName()=" + getName() + ", getCode()=" + getCode() + "]";
 	}
 
-	
 }

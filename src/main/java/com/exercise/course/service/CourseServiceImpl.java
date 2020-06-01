@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.exercise.course.dao.CourseRepository;
+import com.exercise.course.exception.CourseNotFoundException;
 import com.exercise.course.model.Course;
 import com.exercise.course.model.CourseEntity;
 
@@ -25,7 +25,7 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public Page<CourseEntity> getPaginatedCourses(Integer page, Integer size) {
-		Pageable pageable = PageRequest.of(page, size);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
 		return courseRepository.findAll(pageable);
 	}
 
@@ -40,7 +40,7 @@ public class CourseServiceImpl implements CourseService {
 	public CourseEntity getCourse(Long id) {
 		Optional<CourseEntity> courseFinded = courseRepository.findById(id);
 		if (!courseFinded.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, COURSE_ID_NOT_FOUND);
+			throw new CourseNotFoundException(COURSE_ID_NOT_FOUND);
 		}
 		return courseFinded.get();
 	}
@@ -63,7 +63,9 @@ public class CourseServiceImpl implements CourseService {
 		courseToModify.setCode(course.getCode());
 		courseToModify.setName(course.getName());
 
-		return saveCourse(courseToModify);
+		CourseEntity savedCourse = courseRepository.save(courseToModify);
+
+		return savedCourse.getId();
 	}
 
 	@Override

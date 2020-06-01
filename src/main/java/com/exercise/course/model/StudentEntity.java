@@ -7,7 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Table(name = "student", uniqueConstraints = {
+		@UniqueConstraint(name = "student_uk", columnNames = { "rut", "name", "lastName" }),
+		@UniqueConstraint(name = "student_rut_uk", columnNames = { "rut" }) })
 @Entity
 public class StudentEntity extends Student {
 
@@ -17,6 +24,7 @@ public class StudentEntity extends Student {
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "course_id")
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private CourseEntity course;
 
 	public Long getId() {

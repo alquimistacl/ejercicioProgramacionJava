@@ -14,6 +14,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.exercise.course.dao.CourseRepository;
 import com.exercise.course.dao.StudentRepository;
+import com.exercise.course.exception.CourseDoesNotHaveStudentsException;
+import com.exercise.course.exception.CourseNotFoundException;
+import com.exercise.course.exception.StudentNotFoundException;
 import com.exercise.course.model.CourseEntity;
 import com.exercise.course.model.Student;
 import com.exercise.course.model.StudentEntity;
@@ -21,6 +24,7 @@ import com.exercise.course.model.StudentEntity;
 @Service
 public class StudentServiceImpl implements StudentService {
 
+	private static final String WAS_NOT_FOUND = " was not found";
 	private static final String STUDENT_ID_NOT_FOUND = "Student id not found";
 	@Autowired
 	private StudentRepository studentRepository;
@@ -48,7 +52,7 @@ public class StudentServiceImpl implements StudentService {
 		Optional<StudentEntity> studentFound = studentRepository.findById(id);
 
 		if (!studentFound.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, STUDENT_ID_NOT_FOUND);
+			throw new StudentNotFoundException(STUDENT_ID_NOT_FOUND);
 		}
 		return studentFound.get();
 	}
@@ -65,14 +69,17 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public List<StudentEntity> getStudentsByCourse(Long idCourse) {
 		if (!courseRepository.findById(idCourse).isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The course id " + idCourse + " was not found");
+			String reason = "The course id " + idCourse + WAS_NOT_FOUND;
+			throw new CourseNotFoundException(reason);
 		}
 
 		List<StudentEntity> studentsFound = studentRepository.findByCourseId(idCourse);
 
 		if (studentsFound.isEmpty()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-					"The course id " + idCourse + " does not have any student");
+			
+			
+			String reason = "The course id " + idCourse + " has no studentss";
+			throw new CourseDoesNotHaveStudentsException(reason);
 		}
 
 		return studentsFound;
@@ -84,7 +91,8 @@ public class StudentServiceImpl implements StudentService {
 		Optional<CourseEntity> courseFound = courseRepository.findById(courseId);
 
 		if (!courseFound.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The course " + courseId + " was not found");
+			String reason = "The course " + courseId + WAS_NOT_FOUND;
+			throw new CourseNotFoundException(reason);
 		}
 
 		StudentEntity studentEntity = new StudentEntity();
@@ -104,7 +112,8 @@ public class StudentServiceImpl implements StudentService {
 
 		Optional<StudentEntity> studentFound = studentRepository.findById(studentId);
 		if (!studentFound.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The student " + studentId + " was not found");
+			String reason = "The student " + studentId + WAS_NOT_FOUND;
+			throw new StudentNotFoundException(reason);
 		}
 
 		StudentEntity studentEntity = studentFound.get();
@@ -119,16 +128,18 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public Long updateStudentCourse(Long studentId, Long courseId) {
+	public Long updateStudentCourse(Long studentId, Long courseId){
 		Optional<StudentEntity> studentFound = studentRepository.findById(studentId);
 		if (studentFound.isEmpty()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The student " + studentId + " was not found");
+			String reason = "The student " + studentId + WAS_NOT_FOUND;
+			throw new StudentNotFoundException(reason);
 		}
 
 		Optional<CourseEntity> courseFound = courseRepository.findById(courseId);
 
 		if (courseFound.isEmpty()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The course " + courseId + " was not found");
+			String reason = "The course " + courseId + WAS_NOT_FOUND;
+			throw new CourseNotFoundException(reason);
 		}
 
 		StudentEntity studentEntityToBeModified = studentFound.get();
