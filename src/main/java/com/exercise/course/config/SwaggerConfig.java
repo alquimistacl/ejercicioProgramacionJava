@@ -18,4 +18,5 @@ public class SwaggerConfig {
 				.apis(RequestHandlerSelectors.basePackage("com.exercise.course.controller")).build().pathMapping("/");
 
 	}
+
 }

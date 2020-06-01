@@ -15,15 +15,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import io.jsonwebtoken.ExpiredJwtException;
+
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
-	/**
-	 * 
-	 * @param ex
-	 * @param request
-	 * @return
-	 */
+
 	@ExceptionHandler({ StudentNotFoundException.class, CourseNotFoundException.class })
 	public ResponseEntity<GenericError> handleNotFoundException(Exception ex) {
 
@@ -45,8 +42,6 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-//			// TODO Auto-generated method stub
-//			return super.handleMethodArgumentNotValid(ex, headers, status, request);
 		Map<String, String> errors = new HashMap<>();
 		ex.getBindingResult().getAllErrors().forEach((error) -> {
 			String fieldName = ((FieldError) error).getField();
@@ -57,12 +52,6 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
 
 	}
 
-	/**
-	 * 
-	 * @param ex
-	 * @param request
-	 * @return
-	 */
 	private GenericError buildErrorTrace(Exception ex) {
 		GenericError error = new GenericError();
 		error.setUserMessage(ex.getMessage());
