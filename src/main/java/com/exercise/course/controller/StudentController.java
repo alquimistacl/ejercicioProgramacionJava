@@ -89,7 +89,7 @@ public class StudentController {
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
 	@ApiOperation(value = "Operation to create a student with it course id.", nickname = "createStudent", tags = {
 			"student-controller", })
-	@PostMapping(path = "/course/{courseId}/students", produces = { "text/plain" }, consumes = {
+	@PostMapping(path = "/course/{courseId}/students", produces = { "application/json", "text/plain" }, consumes = {
 			"application/json" })
 	public ResponseEntity<String> createStudent(@Valid @PathVariable("courseId") Long courseId,
 			@Valid @RequestBody Student student) {
@@ -101,7 +101,7 @@ public class StudentController {
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
 	@ApiOperation(value = "Operation to update a student course with course id and student id.", nickname = "updateStudentCourse", tags = {
 			"student-controller", })
-	@PutMapping(path = "/course/{courseId}/students/{studentId}", produces = { "text/plain" }, consumes = {
+	@PutMapping(path = "/course/{courseId}/students/{studentId}", produces = { "application/json", "text/plain" }, consumes = {
 			"application/json" })
 	public ResponseEntity<String> updateStudentCourse(
 
@@ -115,7 +115,7 @@ public class StudentController {
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
 	@ApiOperation(value = "Operation to update a student.", nickname = "updateStudent", tags = {
 			"student-controller", })
-	@PutMapping(path = "/students/{studentId}", produces = { "text/plain" }, consumes = { "application/json" })
+	@PutMapping(path = "/students/{studentId}", produces = { "application/json", "text/plain" }, consumes = { "application/json" })
 	public ResponseEntity<String> updateStudent(@Valid @PathVariable("studentId") Long studentId,
 			@Valid @RequestBody Student student) {
 		Long updateStudent = studentService.updateStudent(studentId, student);
@@ -126,7 +126,7 @@ public class StudentController {
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
 	@ApiOperation(value = "Operation to delete a student by id.", nickname = "deleteStudent", tags = {
 			"student-controller", })
-	@DeleteMapping(path = "/students/{studentId}", produces = { "text/plain" })
+	@DeleteMapping(path = "/students/{studentId}", produces = { "application/json", "text/plain" })
 	public ResponseEntity<String> deleteStudent(@Valid @PathVariable("studentId") Long studentId) {
 		Long deletedStudent = studentService.deleteStudent(studentId);
 

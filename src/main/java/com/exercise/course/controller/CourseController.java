@@ -74,7 +74,7 @@ public class CourseController {
 
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
 	@ApiOperation(value = "Operation to create a course.", nickname = "createCourse", tags = { "course-controller", })
-	@PostMapping(path = "/courses", produces = { "text/plain" }, consumes = { "application/json" })
+	@PostMapping(path = "/courses", produces = { "application/json", "text/plain" }, consumes = { "application/json" })
 	public ResponseEntity<String> createCourse(@Valid @RequestBody Course course) {
 		Long savedCourseId = courseService.saveCourse(course);
 		return new ResponseEntity<>(COURSE_ID + savedCourseId + " correctly saved", HttpStatus.CREATED);
@@ -82,7 +82,7 @@ public class CourseController {
 
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
 	@ApiOperation(value = "Operation to update a course.", nickname = "updateCourse", tags = { "course-controller", })
-	@PutMapping(path = "/courses/{id}", produces = { "text/plain" }, consumes = { "application/json" })
+	@PutMapping(path = "/courses/{id}", produces = { "application/json", "text/plain" }, consumes = { "application/json" })
 	public ResponseEntity<String> updateCourse(@Valid @PathVariable("id") Long id, @Valid @RequestBody Course course) {
 		Long savedCourseId = courseService.updateCourse(id, course);
 		return new ResponseEntity<>(COURSE_ID + savedCourseId + " correctly updated", HttpStatus.OK);
@@ -92,7 +92,7 @@ public class CourseController {
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
 	@ApiOperation(value = "Operation to delete a course by id.", nickname = "deleteCourse", tags = {
 			"course-controller", })
-	@DeleteMapping(path="/courses/{id}", produces = { "text/plain" })
+	@DeleteMapping(path="/courses/{id}", produces = { "application/json", "text/plain" })
 	public ResponseEntity<String> deleteCourse(@Valid @PathVariable("id") Long id) {
 		Long idDeletedCourse = courseService.deleteCourse(id);
 		return new ResponseEntity<>(COURSE_ID + idDeletedCourse + " correctly deleted", HttpStatus.OK);
