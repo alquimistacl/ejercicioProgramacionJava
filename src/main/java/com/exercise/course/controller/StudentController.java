@@ -29,6 +29,7 @@ import io.swagger.annotations.ApiResponses;
 
 /**
  * Controller to handle the student mappings
+ * 
  * @author Luis San Martin
  *
  */
@@ -101,11 +102,10 @@ public class StudentController {
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
 	@ApiOperation(value = "Operation to update a student course with course id and student id.", nickname = "updateStudentCourse", tags = {
 			"student-controller", })
-	@PutMapping(path = "/course/{courseId}/students/{studentId}", produces = { "application/json", "text/plain" }, consumes = {
-			"application/json" })
-	public ResponseEntity<String> updateStudentCourse(
-
-			@Valid @PathVariable("courseId") Long courseId, @Valid @PathVariable("studentId") Long studentId) {
+	@PutMapping(path = "/course/{courseId}/students/{studentId}", produces = { "application/json",
+			"text/plain" })
+	public ResponseEntity<String> updateStudentCourse(@Valid @PathVariable("courseId") Long courseId,
+			@Valid @PathVariable("studentId") Long studentId) {
 		Long updateStudentCourse = studentService.updateStudentCourse(studentId, courseId);
 
 		return new ResponseEntity<>(STUDENT_ID + studentId + " was updated with course id " + updateStudentCourse,
@@ -115,7 +115,8 @@ public class StudentController {
 	@ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
 	@ApiOperation(value = "Operation to update a student.", nickname = "updateStudent", tags = {
 			"student-controller", })
-	@PutMapping(path = "/students/{studentId}", produces = { "application/json", "text/plain" }, consumes = { "application/json" })
+	@PutMapping(path = "/students/{studentId}", produces = { "application/json", "text/plain" }, consumes = {
+			"application/json" })
 	public ResponseEntity<String> updateStudent(@Valid @PathVariable("studentId") Long studentId,
 			@Valid @RequestBody Student student) {
 		Long updateStudent = studentService.updateStudent(studentId, student);
