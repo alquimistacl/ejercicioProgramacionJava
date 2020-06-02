@@ -3,6 +3,11 @@ package com.exercise.course.validator;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Implementation of the rut validation
+ * @author Luis San Martin
+ *
+ */
 public class RutValidator implements ConstraintValidator<Rut, String> {
 
 	@Override

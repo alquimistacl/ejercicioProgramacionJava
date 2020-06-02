@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.exercise.course.dao.CourseRepository;
 import com.exercise.course.dao.StudentRepository;
@@ -21,6 +19,11 @@ import com.exercise.course.model.CourseEntity;
 import com.exercise.course.model.Student;
 import com.exercise.course.model.StudentEntity;
 
+/**
+ * Service in charge of student operations
+ * @author Luis San Martin
+ *
+ */
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -32,6 +35,10 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private CourseRepository courseRepository;
 
+	
+	/**
+	 * allows to get students by page
+	 */
 	@Override
 	public Page<StudentEntity> getPaginatedStudents(Integer page, Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
@@ -39,6 +46,9 @@ public class StudentServiceImpl implements StudentService {
 		return studentRepository.findAll(pageable);
 	}
 
+	/**
+	 * allows to get all students
+	 */
 	@Override
 	public List<StudentEntity> getStudents() {
 		ArrayList<StudentEntity> students = new ArrayList<>();
@@ -47,6 +57,9 @@ public class StudentServiceImpl implements StudentService {
 		return students;
 	}
 
+	/**
+	 * allows to get a student by id
+	 */
 	@Override
 	public StudentEntity getStudent(Long id) {
 		Optional<StudentEntity> studentFound = studentRepository.findById(id);
@@ -57,6 +70,9 @@ public class StudentServiceImpl implements StudentService {
 		return studentFound.get();
 	}
 
+	/**
+	 * allows to delete a student by id
+	 */
 	@Override
 	public Long deleteStudent(Long id) {
 		getStudent(id);
@@ -66,6 +82,9 @@ public class StudentServiceImpl implements StudentService {
 		return id;
 	}
 
+	/**
+	 * allows to get all students in a course
+	 */
 	@Override
 	public List<StudentEntity> getStudentsByCourse(Long idCourse) {
 		if (!courseRepository.findById(idCourse).isPresent()) {
@@ -76,8 +95,7 @@ public class StudentServiceImpl implements StudentService {
 		List<StudentEntity> studentsFound = studentRepository.findByCourseId(idCourse);
 
 		if (studentsFound.isEmpty()) {
-			
-			
+
 			String reason = "The course id " + idCourse + " has no studentss";
 			throw new CourseDoesNotHaveStudentsException(reason);
 		}
@@ -85,6 +103,9 @@ public class StudentServiceImpl implements StudentService {
 		return studentsFound;
 	}
 
+	/**
+	 * allows to save a new student
+	 */
 	@Override
 	public Long saveStudent(Student student, Long courseId) {
 
@@ -107,6 +128,9 @@ public class StudentServiceImpl implements StudentService {
 		return savedStudent.getId();
 	}
 
+	/**
+	 * allows to update a student by id
+	 */
 	@Override
 	public Long updateStudent(Long studentId, Student student) {
 
@@ -127,8 +151,11 @@ public class StudentServiceImpl implements StudentService {
 		return savedStudentEntity.getId();
 	}
 
+	/**
+	 * allows to update the course of the student
+	 */
 	@Override
-	public Long updateStudentCourse(Long studentId, Long courseId){
+	public Long updateStudentCourse(Long studentId, Long courseId) {
 		Optional<StudentEntity> studentFound = studentRepository.findById(studentId);
 		if (studentFound.isEmpty()) {
 			String reason = "The student " + studentId + WAS_NOT_FOUND;

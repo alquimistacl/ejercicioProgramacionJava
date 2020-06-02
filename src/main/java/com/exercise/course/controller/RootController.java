@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.exercise.course.service.JwtUserDetailsService;
 import com.exercise.course.util.JwtTokenUtil;
 
+/**
+ * Helper controller to get the token and expose the swagger documentation
+ * @author Luis San Martin
+ *
+ */
 @Controller
 @RequestMapping
 public class RootController {
@@ -37,6 +42,10 @@ public class RootController {
 		return "redirect:/swagger-ui.html";
 	}
 
+	/**
+	 * This mappings generates a new token
+	 * @return
+	 */
 	@GetMapping("/token")
 	public ResponseEntity<String> getToken() {
 

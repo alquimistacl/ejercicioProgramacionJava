@@ -14,6 +14,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+/**
+ * Class that allows to handle jwt element
+ * @author javainuse
+ *
+ */
 @Component
 public class JwtTokenUtil implements Serializable {
 

@@ -12,16 +12,25 @@ import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.annotations.ApiModelProperty;
+
+/**
+ * Entity describing the student
+ * @author Luis San Martin
+ *
+ */
 @Table(name = "student", uniqueConstraints = {
 		@UniqueConstraint(name = "student_uk", columnNames = { "rut", "name", "lastName" }),
 		@UniqueConstraint(name = "student_rut_uk", columnNames = { "rut" }) })
 @Entity
 public class StudentEntity extends Student {
 
+	@ApiModelProperty("Id of the student")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@ApiModelProperty("Course associated to the student")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "course_id")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })

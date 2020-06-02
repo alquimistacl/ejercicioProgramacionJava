@@ -16,6 +16,11 @@ import com.exercise.course.exception.CourseNotFoundException;
 import com.exercise.course.model.Course;
 import com.exercise.course.model.CourseEntity;
 
+/**
+ * Service in charge of course operations
+ * @author Luis San Martin
+ *
+ */
 @Service
 public class CourseServiceImpl implements CourseService {
 
@@ -23,12 +28,18 @@ public class CourseServiceImpl implements CourseService {
 	@Autowired
 	private CourseRepository courseRepository;
 
+	/**
+	 * allows to obtain courses on pages
+	 */
 	@Override
 	public Page<CourseEntity> getPaginatedCourses(Integer page, Integer size) {
 		Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
 		return courseRepository.findAll(pageable);
 	}
 
+	/**
+	 * allows to obtain all courses 
+	 */
 	@Override
 	public List<CourseEntity> getCourses() {
 		List<CourseEntity> courses = new ArrayList<>();
@@ -36,6 +47,9 @@ public class CourseServiceImpl implements CourseService {
 		return courses;
 	}
 
+	/**
+	 * allows to obtain a course by id
+	 */
 	@Override
 	public CourseEntity getCourse(Long id) {
 		Optional<CourseEntity> courseFinded = courseRepository.findById(id);
@@ -45,6 +59,9 @@ public class CourseServiceImpl implements CourseService {
 		return courseFinded.get();
 	}
 
+	/**
+	 * allows to save a new course
+	 */
 	@Override
 	public Long saveCourse(Course course) {
 		CourseEntity courseEntity = new CourseEntity();
@@ -55,6 +72,9 @@ public class CourseServiceImpl implements CourseService {
 		return savedCourse.getId();
 	}
 
+	/**
+	 * allows to update a course by id 
+	 */
 	@Override
 	public Long updateCourse(Long id, Course course) {
 
@@ -68,6 +88,9 @@ public class CourseServiceImpl implements CourseService {
 		return savedCourse.getId();
 	}
 
+	/**
+	 * allows to delete a course by id
+	 */
 	@Override
 	public Long deleteCourse(Long id) {
 		getCourse(id);

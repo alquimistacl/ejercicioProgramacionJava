@@ -6,19 +6,25 @@ import javax.validation.constraints.NotBlank;
 
 import com.exercise.course.validator.Rut;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @MappedSuperclass
 public class Student {
 
+	@ApiModelProperty("Rut of the student")
 	@NotBlank(message = "Rut is mandatory")
 	@Rut(message = "The rut should be a valid one")
 	private String rut;
 	
+	@ApiModelProperty("Name of the student")
 	@NotBlank(message = "Name is mandatory")
 	private String name;
 	
+	@ApiModelProperty("Last name of the student")
 	@NotBlank(message = "LastName is mandatory")
 	private String lastName;
 
+	@ApiModelProperty("Age of the student")
 	@Min(value = 18, message = "Age should not be less than 18")
 	private Integer age;
 

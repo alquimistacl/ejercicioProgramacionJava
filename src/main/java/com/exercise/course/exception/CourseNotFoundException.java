@@ -1,5 +1,10 @@
 package com.exercise.course.exception;
 
+/**
+ * Exception to handle when the course id was not found
+ * @author Luis San Martin
+ *
+ */
 public class CourseNotFoundException extends RuntimeException {
 
 	/**

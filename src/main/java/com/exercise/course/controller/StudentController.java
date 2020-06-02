@@ -27,6 +27,11 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+/**
+ * Controller to handle the student mappings
+ * @author Luis San Martin
+ *
+ */
 @ApiResponses(value = { @ApiResponse(code = 200, message = "successful operation."),
 		@ApiResponse(code = 400, message = "Bad Request."), @ApiResponse(code = 401, message = "Unauthorized."),
 		@ApiResponse(code = 403, message = "Forbidden."), @ApiResponse(code = 404, message = "Not Found."),

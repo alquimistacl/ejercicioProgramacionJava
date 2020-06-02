@@ -9,6 +9,12 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * Validator to handle the ruts
+ * 
+ * @author Luis San Martin
+ *
+ */
 @Constraint(validatedBy = RutValidator.class)
 @Documented
 @Target({ ElementType.METHOD, ElementType.FIELD })

@@ -2,6 +2,11 @@ package com.exercise.course.exception;
 
 import io.swagger.annotations.ApiModelProperty;
 
+/**
+ * Object to record a generic error
+ * @author Luis San Martin
+ *
+ */
 public class GenericError {
 
 	@ApiModelProperty(notes = "User error message")

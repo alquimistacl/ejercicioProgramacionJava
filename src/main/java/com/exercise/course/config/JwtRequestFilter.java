@@ -17,12 +17,16 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.exercise.course.exception.MissingBearerException;
 import com.exercise.course.service.JwtUserDetailsService;
 import com.exercise.course.util.JwtTokenUtil;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
+/**
+ * This Class allows to handle the requests to validate the JWT
+ * @author javainuse
+ *
+ */
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
